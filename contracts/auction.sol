@@ -2,6 +2,7 @@ pragma solidity ^0.4.0;
 
 contract SimpleAuction {
     address public beneficiary;
+    address public admin;
     uint public auctionStart;
     uint public biddingTime;
 
@@ -15,10 +16,11 @@ contract SimpleAuction {
     event HighestBidIncreased(address bidder, uint amount);
     event AuctionEnded(address winner, uint amount);
 
-    constructor (uint _biddingTime, address _beneficiary) public {
+    constructor (uint _biddingTime, address _beneficiary, address _admin) public {
         beneficiary = _beneficiary;
         auctionStart = now;
         biddingTime = _biddingTime;
+        admin = _admin
     }
 
     function bid() public payable {
@@ -56,6 +58,6 @@ contract SimpleAuction {
         ended = true;
         emit AuctionEnded(highestBidder, highestBid);
 
-        require(beneficiary.transfer(highestBid), 'Error transfering founds to the beneficiary');
+        require (beneficiary.transfer(highestBid), 'Error transfering founds to the beneficiary');
     }
 }
