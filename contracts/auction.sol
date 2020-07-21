@@ -1,8 +1,8 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.5.0;
 
-contract SimpleAuction {
-    address public beneficiary;
-    address public admin;
+contract Auction {
+    address payable public beneficiary;
+    address payable public admin;
     uint public auctionStart;
     uint public biddingTime;
 
@@ -16,10 +16,14 @@ contract SimpleAuction {
     event HighestBidIncreased(address bidder, uint amount);
     event AuctionEnded(address winner, uint amount);
 
-    constructor (uint _biddingTime, address _beneficiary, address _admin) public {
-        beneficiary = _beneficiary;
+    constructor (
+        uint _biddingTime, 
+        address payable _beneficiary, 
+        address payable _admin
+    ) public {
         auctionStart = now;
         biddingTime = _biddingTime;
+        beneficiary = _beneficiary;
         admin = _admin;
     }
 
@@ -27,7 +31,7 @@ contract SimpleAuction {
         require (now < auctionStart + biddingTime, 'The auction has ended.');
         require (msg.value > highestBid, 'The bid provided is lower than the highest one.');
 
-        if (highestBidder != 0) {
+        if (highestBidder != address(0)) {
             pendingReturns[highestBidder] += highestBid;
         }
 
@@ -36,7 +40,7 @@ contract SimpleAuction {
         emit HighestBidIncreased(msg.sender, msg.value);
     }
 
-    function withdraw() public returns (bool){
+    function withdraw() public returns (bool) {
         uint amount = pendingReturns[msg.sender];
 
         if (amount > 0) {
