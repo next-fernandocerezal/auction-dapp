@@ -20,7 +20,7 @@ contract SimpleAuction {
         beneficiary = _beneficiary;
         auctionStart = now;
         biddingTime = _biddingTime;
-        admin = _admin
+        admin = _admin;
     }
 
     function bid() public payable {
@@ -42,7 +42,7 @@ contract SimpleAuction {
         if (amount > 0) {
             pendingReturns[msg.sender] = 0;
 
-            if (!msg.sender.transfer(amount)) {
+            if (!msg.sender.send(amount)) {
                 pendingReturns[msg.sender] = amount;
                 return false;
             }
@@ -58,6 +58,6 @@ contract SimpleAuction {
         ended = true;
         emit AuctionEnded(highestBidder, highestBid);
 
-        require (beneficiary.transfer(highestBid), 'Error transfering founds to the beneficiary');
+        require (beneficiary.send(highestBid), 'Error transfering founds to the beneficiary');
     }
 }
