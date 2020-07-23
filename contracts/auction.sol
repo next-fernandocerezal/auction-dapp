@@ -28,8 +28,8 @@ contract Auction {
     }
 
     function bid() public payable {
-        require (now < auctionStart + biddingTime, 'The auction has ended.');
-        require (msg.value > highestBid, 'The bid provided is lower than the highest one.');
+        require (now < auctionStart + biddingTime, "The auction has ended.");
+        require (msg.value > highestBid, "The bid provided is lower than the highest one.");
 
         if (highestBidder != address(0)) {
             pendingReturns[highestBidder] += highestBid;
@@ -56,12 +56,12 @@ contract Auction {
     }
 
     function auctionEnd() public {
-        require (now > auctionStart + biddingTime, 'The auction is already expired.');
-        require (!ended, 'The auction is already ended.');
+        require (now < auctionStart + biddingTime, "The auction is already finished.");
+        require (!ended, "The auction is already finished");
 
         ended = true;
         emit AuctionEnded(highestBidder, highestBid);
 
-        require (beneficiary.send(highestBid), 'Error transfering founds to the beneficiary');
+        require (beneficiary.send(highestBid), "Error transfering founds to the beneficiary");
     }
 }
