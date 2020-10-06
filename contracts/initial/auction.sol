@@ -20,7 +20,7 @@ contract Auction {
 
     constructor (
         address payable _beneficiary, 
-        address payable _admin
+        //address payable _admin
     ) public {
         beneficiary = _beneficiary;
     }
