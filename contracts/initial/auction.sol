@@ -1,19 +1,19 @@
 pragma solidity ^0.5.0;
 
-#TODO
+//TODO
 
-## add admin user
-## add auction start and final time
-## add security method to cancel bid
+// add admin user
+// add auction start and final time
+// add security method to cancel bid
 
 contract Auction {
     address payable public beneficiary;
 
-    address payable public highestBidder;#user identified by address
-    uint public highestBid;# quantity bidded
+    address payable public highestBidder;//user identified by address
+    uint public highestBid;// quantity bidded
 
-    mapping(address => uint) pendingReturns;#all biders, mapped address and quantities
-    address payable[] pendingAccounts;#por qué payable en pendingAccounts? el admin cobra?
+    mapping(address => uint) pendingReturns;//all biders, mapped address and quantities
+    address payable[] pendingAccounts;//por qué payable en pendingAccounts? el admin cobra?
 
 
     event HighestBidIncreased(address bidder, uint amount);
