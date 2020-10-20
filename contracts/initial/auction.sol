@@ -1,9 +1,8 @@
 pragma solidity ^0.5.0;
 
 //TODO
-
-// add admin user
 // add auction start and final time
+// add admin user
 // add security method to cancel bid
 
 contract Auction {
@@ -19,8 +18,7 @@ contract Auction {
     event HighestBidIncreased(address bidder, uint amount);
 
     constructor (
-        address payable _beneficiary, 
-        //address payable _admin
+        address payable _beneficiary 
     ) public {
         beneficiary = _beneficiary;
     }
@@ -58,3 +56,4 @@ contract Auction {
 
 
 }
+
