@@ -12,7 +12,7 @@ contract Auction {
     uint public highestBid;// quantity bidded
 
     mapping(address => uint) pendingReturns;//all biders, mapped address and quantities
-    address payable[] pendingAccounts;//por qué payable en pendingAccounts? el admin cobra?
+    address payable[] pendingAccounts;//
 
 
     event HighestBidIncreased(address bidder, uint amount);
