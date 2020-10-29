@@ -35,10 +35,10 @@ contract Auction {
         require (msg.sender != highestBidder, "You are already the highest bidder.");
         require (msg.sender != admin, "The auction admin can't place a bid." );
 
-        if (highestBidder != address(0)) {
+//        if (highestBidder != address(0)) {
             pendingReturns[highestBidder] += highestBid;
             pendingAccounts.push(highestBidder);
-        }
+//        }
 
         highestBidder = msg.sender;
         highestBid = msg.value;
