@@ -30,10 +30,10 @@ contract Auction {
         require (msg.value > highestBid, "The bid provided is lower than the highest one.");
         require (msg.sender != highestBidder, "You are already the highest bidder.");
 
-        if (highestBidder != address(0)) {
+//        if (highestBidder != address(0)) {
             pendingReturns[highestBidder] += highestBid;
             pendingAccounts.push(highestBidder);
-        }
+//        }
 
         highestBidder = msg.sender;
         highestBid = msg.value;
