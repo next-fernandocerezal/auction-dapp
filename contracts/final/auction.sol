@@ -63,7 +63,6 @@ contract Auction {
                 return false;
             }
         }
-        numberOfBids--;
         return true;
     }
 
