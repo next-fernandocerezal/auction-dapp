@@ -5,6 +5,7 @@ contract Auction {
     address public admin;
     uint public auctionStart;
     uint public biddingTime;
+    uint public numberOfBids;
 
     address payable public highestBidder;
     uint public highestBid;
@@ -14,9 +15,11 @@ contract Auction {
 
     bool ended;
 
-    event HighestBidIncreased(address bidder, uint amount);
+    event HighestBidIncreased(address bidder, uint amount, numberOfBids);
     event AuctionEnded(address winner, uint amount);
     event AuctionCanceled();
+
+    
 
     constructor (
         uint _biddingTime, 
@@ -27,6 +30,7 @@ contract Auction {
         biddingTime = _biddingTime;
         beneficiary = _beneficiary;
         admin = _admin;
+        numberOfBids=0;
     }
 
     function bid() public payable {
@@ -42,7 +46,8 @@ contract Auction {
 
         highestBidder = msg.sender;
         highestBid = msg.value;
-        emit HighestBidIncreased(msg.sender, msg.value);
+        numberOfBids++;
+        emit HighestBidIncreased(msg.sender, msg.value, numberOfBids);
     }
 
     function withdraw() public returns (bool) {
@@ -58,7 +63,7 @@ contract Auction {
                 return false;
             }
         }
-
+        numberOfBids--;
         return true;
     }
 
